@@ -14,6 +14,8 @@ all:
 	-apt-get install dotnet-sdk-2.1.3 -y
 
 	# build
+	echo $PWD
+	echo $(ls)
 	cd CO663.DependencySolver
 	dotnet restore
 	dotnet build
