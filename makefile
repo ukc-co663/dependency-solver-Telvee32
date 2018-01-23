@@ -9,10 +9,13 @@ all:
 
 	sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-xenial-prod xenial main" > /etc/apt/sources.list.d/dotnetdev.list'
 	-apt-get update -y
+	@echo ".NET Core dependencies satisfied!"
 
 	# install .NET Core
 	-apt-get install dotnet-sdk-2.1.3 -y
 
 	# build
+	@echo "Commencing project build..."
 	dotnet restore CO663.DependencySolver
 	dotnet build CO663.DependencySolver
+	@echo "Compiled!"
