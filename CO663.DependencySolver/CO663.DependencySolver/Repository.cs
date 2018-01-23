@@ -9,10 +9,10 @@ namespace CO663.DependencySolver
     {
         public List<Package> Packages { get; set; }
 
-        public Repository(string jsonString)
+        public Repository(string json)
         {
             // parse JSON and construct package list
-            Packages = JsonConvert.DeserializeObject<List<Package>>(jsonString);
+            Packages = JsonConvert.DeserializeObject<List<Package>>(json);
         }
     }
 }
