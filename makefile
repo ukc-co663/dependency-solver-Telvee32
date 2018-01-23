@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 all:
+	# resolve dependencies for .NET Core
 	-apt-get update -y
 	-apt-get install curl apt-transport-https -y
 
@@ -9,4 +10,10 @@ all:
 	sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-xenial-prod xenial main" > /etc/apt/sources.list.d/dotnetdev.list'
 	-apt-get update -y
 
+	# install .NET Core
 	-apt-get install dotnet-sdk-2.1.3 -y
+
+	# build
+	cd CO663.DependencySolver
+	dotnet restore
+	dotnet build
