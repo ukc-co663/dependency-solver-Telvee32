@@ -16,5 +16,6 @@ all:
 	# build
 	ls;
 	cd "CO663.DependencySolver"
+	ls;
 	dotnet restore
 	dotnet build
