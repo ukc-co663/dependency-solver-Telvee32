@@ -22,6 +22,3 @@ all:
 	@echo $(shell ls)
 	@echo $(shell ls -la)
 	@echo $(shell ls -la solve)
-	@echo "Adding execute to solve..."
-	$(shell chmod +x solve)
-	@echo $(shell ls -la solve)
