@@ -1,4 +1,3 @@
 #!/usr/bin/env bash
-echo $1
 
-dotnet run CO663.DependencySolver/CO663.DependencySolver $1 $2 $3
+dotnet run --project CO663.DependencySolver/CO663.DependencySolver/CO663.DependencySolver.csproj -- $1 $2 $3
