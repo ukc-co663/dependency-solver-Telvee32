@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using Newtonsoft.Json;
 
 namespace CO663.DependencySolver
@@ -18,6 +19,8 @@ namespace CO663.DependencySolver
             Console.WriteLine(args[0]);
             Console.WriteLine(args[1]);
             Console.WriteLine(args[2]);
+
+            Thread.Sleep(2000);
 
             Console.WriteLine($"Repository JSON: {Path.GetFullPath(repositoryPath)}");
             Console.WriteLine($"Initial JSON: {Path.GetFullPath(initialPath)}");
