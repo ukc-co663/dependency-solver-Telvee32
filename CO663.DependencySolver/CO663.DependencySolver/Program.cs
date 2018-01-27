@@ -16,16 +16,12 @@ namespace CO663.DependencySolver
             var initialPath = args[1];
             var constraintsPath = args[2];
 
-            Console.Error.WriteLine(args[0]);
-            Console.Error.WriteLine(args[1]);
-            Console.Error.WriteLine(args[2]);
-
-            Thread.Sleep(2000);
-
             Console.Error.WriteLine($"Repository JSON: {Path.GetFullPath(repositoryPath)}");
             Console.Error.WriteLine($"Initial JSON: {Path.GetFullPath(initialPath)}");
             Console.Error.WriteLine($"Constraints JSON: {Path.GetFullPath(constraintsPath)}");
 
+            var repoJson = File.ReadAllText(repositoryPath);
+            if (!string.IsNullOrEmpty(repoJson)) Thread.Sleep(2000);
             var repo = new Repository(File.ReadAllText(repositoryPath));
 
             Console.WriteLine("====== Packages ======");
