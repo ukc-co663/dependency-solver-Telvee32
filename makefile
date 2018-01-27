@@ -19,3 +19,6 @@ all:
 	dotnet restore CO663.DependencySolver
 	dotnet build CO663.DependencySolver
 	@echo "Compiled!"
+	@echo $(shell ls)
+	@echo $(shell ls -la)
+	@echo $(shell ls -la solve)
