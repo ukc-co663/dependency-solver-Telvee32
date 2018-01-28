@@ -12,51 +12,30 @@ namespace CO663.DependencySolver
     {
         static void Main(string[] args)
         {
-            var repositoryPath = args[0];
-            var initialPath = args[1];
-            var constraintsPath = args[2];
-
-            Console.Error.WriteLine($"Repository JSON: {Path.GetFullPath(repositoryPath)}");
-            Console.Error.WriteLine($"Initial JSON: {Path.GetFullPath(initialPath)}");
-            Console.Error.WriteLine($"Constraints JSON: {Path.GetFullPath(constraintsPath)}");
-
-            var repoJson = File.ReadAllText(repositoryPath);
-            if (!string.IsNullOrEmpty(repoJson)) Thread.Sleep(2000);
-            var repo = new Repository(File.ReadAllText(repositoryPath));
-
-            Console.WriteLine("====== Packages ======");
-            foreach (var package in repo.Packages)
+            string repositoryPath;
+            string initialPath;
+            string constraintsPath;
+            if (args.Any())
             {
-                Console.WriteLine($"Name: {package.Name}");
-                Console.WriteLine($"Version: {package.Version}");
-                string depends = null;
-                if (package.Depends != null && package.Depends.Any())
-                {
-                    foreach (var depend in package.Depends)
-                    {
-                        if (depend.Count == 1)
-                        {
-                            depends += $"[{depend[0]}]";
-                        }
-                        else // many
-                        {
-                            depends += "[";
-                            foreach (var dep in depend)
-                            {
-                                depends += $"{dep},";
-                            }
-                            depends += "]";
-                        }
-                        depends += ",";
-                    }
-                }
-                Console.WriteLine($"Depends: {depends ?? "none"}");
-
-                Console.WriteLine("---------");
+                // running in docker sandbox
+                repositoryPath = args[0];
+                initialPath = args[1];
+                constraintsPath = args[2];
+            }
+            else
+            {
+                // running in Visual Studio, setting command line arguments is not worth the effort
+                var basePath = @"D:/Users/Kyle/Documents/co663-depsolver-tests/example-0/";
+                repositoryPath = basePath + "repository.json";
+                initialPath = basePath + "initial.json";
+                constraintsPath = basePath + "constraints.json";
             }
 
+            Repository repo = new Repository(File.ReadAllText(repositoryPath));
             List<string> initial = JsonConvert.DeserializeObject<List<string>>(File.ReadAllText(initialPath));
             List<string> constraints = JsonConvert.DeserializeObject<List<string>>(File.ReadAllText(constraintsPath));
+
+            // TODO - do something with this stuff
         }
     }
 }
