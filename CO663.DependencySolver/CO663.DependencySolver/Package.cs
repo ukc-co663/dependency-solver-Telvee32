@@ -13,7 +13,8 @@ namespace CO663.DependencySolver
         public List<string> Conflicts { get; }
 
         // graph structure
-        public List<Package> PackageDependencies { get; set; }
+        // outer list elements are treated as AND, inner list elements are treated as OR
+        public List<List<Package>> PackageDependencies { get; set; }
         public List<Package> PackageConflicts { get; set; }
 
         public Package(string name, string version, int size, List<List<string>> depends, List<string> conflicts)
@@ -21,8 +22,10 @@ namespace CO663.DependencySolver
             Name = name;
             Version = new Version(version);
             Size = size;
-            Depends = depends;
-            Conflicts = conflicts;
+            Depends = depends ?? new List<List<string>>();
+            Conflicts = conflicts ?? new List<string>();
+            PackageDependencies = new List<List<Package>>();
+            PackageConflicts = new List<Package>();
         }
     }
 }

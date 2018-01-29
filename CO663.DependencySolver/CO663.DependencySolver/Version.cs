@@ -13,8 +13,8 @@ namespace CO663.DependencySolver
 
         public static bool operator ==(Version x, Version y)
         {
-            if (x == null && y == null) return true;
-            if (x == null || y == null) return false; // if only one is null
+            if (x is null && y is null) return true;
+            if (x is null || y is null) return false; // if only one is null
 
             if (ReferenceEquals(x, y)) return true;
 
@@ -31,8 +31,8 @@ namespace CO663.DependencySolver
 
         public static bool operator !=(Version x, Version y)
         {
-            if (x == null && y == null) return false;
-            if (x == null || y == null) return true; // if only one is null
+            if (x is null && y is null) return false;
+            if (x is null || y is null) return true; // if only one is null
 
             if (ReferenceEquals(x, y)) return false;
 
@@ -49,9 +49,9 @@ namespace CO663.DependencySolver
 
         public static bool operator <=(Version x, Version y)
         {
-            if (x == null && y == null) return true;
-            if (x == null && y != null) return true;
-            if (x != null && y == null) return false;
+            if (x is null && y is null) return true;
+            if (x is null && !(y is null)) return true;
+            if (!(x is null) && y is null) return false;
 
             if (ReferenceEquals(x, y)) return true;
 
@@ -78,9 +78,9 @@ namespace CO663.DependencySolver
 
         public static bool operator >=(Version x, Version y)
         {
-            if (x == null && y == null) return true;
-            if (x == null && y != null) return false;
-            if (x != null && y == null) return true;
+            if (x is null && y is null) return true;
+            if (x is null && !(y is null)) return false;
+            if (!(x is null) && y is null) return true;
 
             if (ReferenceEquals(x, y)) return true;
 
@@ -107,9 +107,9 @@ namespace CO663.DependencySolver
 
         public static bool operator <(Version x, Version y)
         {
-            if (x == null && y == null) return false;
-            if (x == null && y != null) return true;
-            if (x != null && y == null) return false;
+            if (x is null && y is null) return false;
+            if (x is null && !(y is null)) return true;
+            if (!(x is null) && y is null) return false;
 
             if (ReferenceEquals(x, y)) return false;
 
@@ -136,9 +136,9 @@ namespace CO663.DependencySolver
 
         public static bool operator >(Version x, Version y)
         {
-            if (x == null && y == null) return false;
-            if (x == null && y != null) return false;
-            if (x != null && y == null) return true;
+            if (x is null && y is null) return false;
+            if (x is null && !(y is null)) return false;
+            if (!(x is null) && y is null) return true;
 
             if (ReferenceEquals(x, y)) return false;
 
@@ -165,7 +165,18 @@ namespace CO663.DependencySolver
 
         protected bool Equals(Version other)
         {
-            return Equals(VersionNumbers, other.VersionNumbers);
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+
+            if (this.VersionNumbers.Length != other.VersionNumbers.Length) return false;
+            if (!this.VersionNumbers.Any() && !other.VersionNumbers.Any()) return true;
+
+            for (int i = 0; i < this.VersionNumbers.Length; i++)
+            {
+                if (this.VersionNumbers[i] != other.VersionNumbers[i]) return false;
+            }
+
+            return true;
         }
 
         public override bool Equals(object obj)
